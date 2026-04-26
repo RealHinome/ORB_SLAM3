@@ -23,8 +23,6 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
 
-#include "Viewer.h"
-#include "FrameDrawer.h"
 #include "Atlas.h"
 #include "LocalMapping.h"
 #include "LoopClosing.h"
@@ -32,7 +30,6 @@
 #include "ORBVocabulary.h"
 #include "KeyFrameDatabase.h"
 #include "ORBextractor.h"
-#include "MapDrawer.h"
 #include "System.h"
 #include "ImuTypes.h"
 #include "Settings.h"
@@ -58,8 +55,9 @@ class Tracking
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-    Tracking(System* pSys, ORBVocabulary* pVoc, FrameDrawer* pFrameDrawer, MapDrawer* pMapDrawer, Atlas* pAtlas,
-             KeyFrameDatabase* pKFDB, const string &strSettingPath, const int sensor, Settings* settings, const string &_nameSeq=std::string());
+    Tracking(System* pSys, ORBVocabulary* pVoc, void* pFrameDrawer, void* pMapDrawer, 
+         Atlas* pAtlas, KeyFrameDatabase* pKFDB, const string &strSettingPath, 
+         const int sensor, Settings* settings, const string &_nameSeq=std::string());
 
     ~Tracking();
 
@@ -278,9 +276,9 @@ protected:
     System* mpSystem;
     
     //Drawers
-    Viewer* mpViewer;
-    FrameDrawer* mpFrameDrawer;
-    MapDrawer* mpMapDrawer;
+    void* mpViewer;
+    void* mpFrameDrawer;
+    void* mpMapDrawer;
     bool bStepByStep;
 
     //Atlas
